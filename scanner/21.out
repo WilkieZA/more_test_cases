@@ -1,0 +1,44 @@
+'program'
+'while'
+'end'
+Number: 123
+Number: 984
+String: "This is { } a string"
+'input'
+Number: 90
+String: "test"
+'if'
+String: "stop\""
+'rem'
+'not'
+Identifier: 'test'
+Number: 67
+'and'
+Number: 2147483647
+'rem'
+Number: 34
+Identifier: 'chillax34'
+Number: 34
+Identifier: 'next_87te'
+String: " test \ty"
+'end'
+Identifier: 'wwwwwwwwwwwwwwwwwwwwwwwwwwwwwwww'
+Number: 12
+Identifier: 'vs'
+String: "{this is a\\\\ string}"
+'+'
+'='
+'('
+')'
+'['
+']'
+'..'
+'->'
+'/'
+'-'
+'>'
+'+'
+Number: 8
+'/='
+Number: 23
+String: "Author: Z von Ludwig"

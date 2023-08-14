@@ -68,7 +68,7 @@ def compile_test_module(module, src = f'{os.getcwd()}/../src') -> bool:
     Runs the command `make test{module}` in the src directory.
     """
 
-    cprint(f'Compiling {module}...', 'yellow')
+    cprint(f'Compiling {module}...', 'blue')
     res = subprocess.call(
         [f'make test{module}'],
         shell=True,

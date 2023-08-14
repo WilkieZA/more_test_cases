@@ -1,4 +1,7 @@
 __pycache__/
+*.swp
+
+
 tests/*.ampl
 
 # Include tests 0-16

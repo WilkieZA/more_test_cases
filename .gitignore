@@ -1,9 +1,2 @@
 __pycache__/
 *.swp
-
-
-tests/*.ampl
-
-# Include selected tests
-!tests/[0-9].ampl
-!tests/[1-2][0-9].ampl

@@ -48,7 +48,7 @@ Identifier: 'i'
 ']'
 ';'
 'output'
-String: "Enter salary for ployee "
+String: "Enter salary for "
 ','
 Identifier: 'employeeNames'
 '['
@@ -114,7 +114,7 @@ Number: 1
 ']'
 ':'
 'output'
-String: "Enter name for department ments: "
+String: "Enter name for department "
 ','
 Identifier: 'i'
 '+'
@@ -129,7 +129,7 @@ Identifier: 'i'
 ']'
 ';'
 'output'
-String: "Managing department: ment ments: "
+String: "Managing department: "
 ','
 Identifier: 'departments'
 '['

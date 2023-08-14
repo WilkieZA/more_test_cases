@@ -54,7 +54,7 @@ python3 test.py --help
 For the purposes of the scanner run:
 ```bash
 # Run all tests
-python3 test.py --scanner 0..26
+python3 test.py --scanner 0..30
 ```
 
 ### Style Checking

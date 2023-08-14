@@ -12,7 +12,7 @@
 
 Python requirements can be installed with:
 ```bash
-pip3 install -r requirements.txt
+python3 -m pip install -r requirements.txt
 ```
 
 ## Repository Structure

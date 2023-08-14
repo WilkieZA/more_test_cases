@@ -81,3 +81,4 @@ Please fork the repository and checkout a resonable branch name and submit a pul
 | Dylan Kirby       | 25853805       |
 | Zander Von Ludwig | 25870963       |
 | Michael van Zyl   | 22604731       |
+| Matthew Stein     | 25400800       |

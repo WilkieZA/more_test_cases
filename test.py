@@ -64,7 +64,7 @@ def run_test(module, test_numbers: range | list[int] = range(0, 10+1)):
     # Diff the output with {module}/{number}.out
     # If diff is empty, test passes
 
-    cprint(f'Running tests for {module}...', 'yellow')
+    cprint(f'Running tests for {module}...', 'blue')
 
     failed = []
     for i in test_numbers:

@@ -38,28 +38,6 @@ from docopt import docopt
 from termcolor import cprint
 from utils import compile_test_module, RedirectedStreams
 
-""" Directory Structure
-ampl/
-    src/
-        test{module}.c
-        {requirements}.c
-        {requirements}.h
-        Makefile
-    test/
-        test.py
-        tests/
-            0.ampl
-            ...
-            9999.ampl
-        {module}/
-            0.out
-            ...
-            9999.out
-        ...
-    bin/
-        test{module}
-"""
-
 
 def execute_test(module, test_number: int, cwd: str = os.getcwd()):
 

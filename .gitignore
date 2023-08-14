@@ -4,6 +4,6 @@ __pycache__/
 
 tests/*.ampl
 
-# Include tests 0-16
+# Include selected tests
 !tests/[0-9].ampl
 !tests/[1][0-9].ampl

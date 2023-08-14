@@ -2,9 +2,22 @@
 
 **WARNING**: The validity of these tests is not guaranteed.
 
+## Setup
+
+### Requirements
+
+- Python 3
+- GCC
+- Make
+
+Python requirements can be installed with:
+```bash
+pip3 install -r requirements.txt
+```
+
 ## Repository Structure
 
-The test scripts should be placed along side the `src/` directory of the `AMPL` compiler.
+The test scripts should be placed along side the `src/` directory of the `AMPL` compiler in the `test/` directory.
 
 Follow the directory structure below:
 ```
@@ -28,7 +41,10 @@ ampl/
 
 ## Scripts
 
+**Note**: All test scripts should be run from the `test/` directory.
+
 ### Running Tests
+
 
 The `test.py` script will run the tests, see:
 ```bash
@@ -39,6 +55,13 @@ For the purposes of the scanner run:
 ```bash
 # Run all tests
 python3 test.py --scanner 0..26
+```
+
+### Style Checking
+
+The `styletest.py` script will run the style checker, see:
+```bash
+python3 styletest.py
 ```
 
 ### Saving tests to module directory

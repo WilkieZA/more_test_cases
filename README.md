@@ -1,5 +1,7 @@
 # AMPL Testing Scripts
 
+**WARNING**: There are 10 000 cases, but only some are visible at the moment
+
 ## Repository Structure
 
 The test scripts should be placed along side the `src/` directory of the `AMPL` compiler.

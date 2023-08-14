@@ -1,0 +1,11 @@
+'program'
+Identifier: 'non_printable'
+':'
+Identifier: 'greet'
+'('
+')'
+':'
+'output'
+String: "This is fine\n"
+';'
+'output'

@@ -1,0 +1,14 @@
+'program'
+Identifier: 'escape'
+':'
+Identifier: 'greet'
+'('
+')'
+':'
+'output'
+String: "Nobody is perfect\t\n"
+';'
+'output'
+String: "Maybe I contain a \"mistake\"...?"
+';'
+'output'

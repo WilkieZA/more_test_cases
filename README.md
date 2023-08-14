@@ -1,6 +1,6 @@
 # AMPL Testing Scripts
 
-**WARNING**: There are 10 000 cases, but only some are visible at the moment
+**WARNING**: The validity of these tests is not guaranteed.
 
 ## Repository Structure
 
@@ -34,7 +34,12 @@ The `test.py` script will run the tests, see:
 ```bash
 python3 test.py --help
 ```
-for more info.
+
+For the purposes of the scanner run:
+```bash
+# Run all tests
+python3 test.py --scanner 0..26
+```
 
 ### Saving tests to module directory
 
@@ -45,3 +50,11 @@ The `save_tests.sh` script saves the executed code to the module direcory, effec
 Please fork the repository and checkout a resonable branch name and submit a pull request to merge your changes.
 
 > Do not commit directly to the `master` branch
+
+## Acknowledgments
+
+| Name              | Student Number |
+| ----------------- | -------------- |
+| Dylan Kirby       | 25853805       |
+| Zander Von Ludwig | 25870963       |
+| Michael van Zyl   | 22604731       |

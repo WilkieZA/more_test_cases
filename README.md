@@ -43,3 +43,5 @@ The `save_tests.sh` script saves the executed code to the module direcory, effec
 ## Contributing
 
 Please fork the repository and checkout a resonable branch name and submit a pull request to merge your changes.
+
+> Do not commit directly to the `master` branch

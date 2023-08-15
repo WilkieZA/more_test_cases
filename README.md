@@ -14,9 +14,9 @@ This repository houses a collection of testing scripts tailored to the AMPL comp
 
 Before proceeding, ensure your system meets the following requirements:
 
-- Python 3
-- GCC
-- Make
+- [Python 3](https://www.python.org/)
+- [GCC](https://gcc.gnu.org/)
+- [Make](https://www.gnu.org/software/make/)
 
 You can install these dependencies using the following command:
 
@@ -52,6 +52,36 @@ ampl/
     bin/
         test{module}
 ```
+
+### Seamless Integration and Updates
+
+For optimal integration, we recommend cloning this repository directly into your existing `ampl/` directory where your AMPL compiler is located. By doing so, you will be able to effortlessly keep your test suite up-to-date with the latest advancements through a simple `git pull` command.
+
+Here's how you can set it up:
+
+1. **Initial Setup:**
+    Open your terminal and navigate to the root directory of your AMPL compiler (`ampl/`). Then, execute the following commands:
+
+    ```bash
+    cd ampl
+    git clone https://github.com/DylanKirbs/ampl-tests test
+    ```
+
+    This will clone the repository and create a `test` directory within your AMPL directory.
+
+2. **Keeping Up-to-Date:**
+    As new versions of the test suite are released, you can effortlessly update your local copy by using the following commands:
+
+    ```bash
+    cd ampl/test
+    git pull
+    ```
+
+    Running these commands while inside the `test` directory will pull the latest changes from the repository.
+
+Please note, when performing actions related to your AMPL version control, remember to operate from the `ampl/` directory rather than the `test/` directory to ensure smooth integration.
+
+By adhering to this approach, you can seamlessly maintain and utilize the latest test suite advancements while working with your AMPL compiler.
 
 ## Usage
 

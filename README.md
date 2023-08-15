@@ -1,16 +1,23 @@
 # AMPL Testing Scripts
 
+![Header Image](https://repository-images.githubusercontent.com/678396879/33ab37e9-c433-4848-b67a-8f535c5bcb8c)
+
 **WARNING**: The validity of these tests is not guaranteed.
 
 ## Setup
 
 ### Requirements
 
+System Requirements:
 - Python 3
 - GCC
 - Make
 
-Python requirements can be installed with:
+```bash
+sudo apt install gcc make python3 python3-pip
+```
+
+Additional python requirements can be installed with:
 ```bash
 python3 -m pip install -r requirements.txt
 ```

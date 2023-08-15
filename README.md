@@ -64,9 +64,11 @@ The `styletest.py` script will run the style checker, see:
 python3 styletest.py
 ```
 
-### Saving tests to module directory
+### Creating tests for a module
 
-The `save_tests.sh` script saves the executed code to the module direcory, effectively overwriting the "expected out".
+*NB*: This script should only be used by people contributing to the test suite.
+
+The `create_test_cases.sh` script saves the executed code to the module direcory, effectively overwriting the "expected out".
 
 ## Contributing
 

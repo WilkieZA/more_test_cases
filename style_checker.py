@@ -33,12 +33,7 @@ from termcolor import cprint
 
 # Precompile regexes
 DISALLOWED_REGEXES = {
-    "single_line_comment": re.compile(r"//"),
-    "sizeof_with_space": re.compile(r"sizeof \("),
-    "opening_parenthesis_space": re.compile(r"\(\s"),
-    "closing_parenthesis_space": re.compile(r"\s\)"),
-    "opening_bracket_space": re.compile(r"\[\s"),
-    "closing_bracket_space": re.compile(r"\s\]"),
+    # Logical Statements
     "no_if_space": re.compile(r"if\("),
     "no_for_space": re.compile(r"for\("),
     "no_while_space": re.compile(r"while\("),
@@ -47,9 +42,29 @@ DISALLOWED_REGEXES = {
     "no_space_before_else": re.compile(r"\}else"),
     "no_space_after_else": re.compile(r"else\{"),
     "no_space_between_else_if": re.compile(r"elseif"),
-    "no_newline_eof": re.compile(r"\nEOF"),
+
+    # Braces
+    "opening_parenthesis_space": re.compile(r"\(\s"),
+    "closing_parenthesis_space": re.compile(r"\s\)"),
+    "opening_bracket_space": re.compile(r"\[\s"),
+    "closing_bracket_space": re.compile(r"\s\]"),
+    
+    # Function Calls
+    "sizeof_with_space": re.compile(r"sizeof \("),
+    
+    # Comments
+    "single_line_comment": re.compile(r"//"),
+
+    # Lines
     "line_ends_in_space": re.compile(r"\s\n$"),
+    "eof_not_on_newline": re.compile(r"(?<![\r\n])$(?![\r\n])"),
+    "line_longer_80_chars": re.compile(r"^.{81,}$"),
+
 }
+
+COMMENT_CHECKS = [
+    "line_longer_80_chars"
+]
 
 
 if __name__ == "__main__":
@@ -80,8 +95,15 @@ if __name__ == "__main__":
 
         for rule, regex in DISALLOWED_REGEXES.items():
             for line_num, line in enumerate(lines):
+
+                strp_line = line.strip()
+                is_comment = strp_line.startswith("//") or strp_line.startswith("/*")
+                # Skip checks on comments unless it is a comment check
+                if is_comment and rule not in COMMENT_CHECKS:
+                    continue
+
                 if regex.search(line):
-                    print(f"ERROR: {rule} on line {line_num + 1} of {file}")
+                    cprint(f"ERROR: <{rule}> on line {line_num + 1} of {file}", "red")
                     print(">", line.strip())
                     print()
                     errors += 1

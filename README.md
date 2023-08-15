@@ -120,7 +120,7 @@ For code auto-formatting using `clang-format`, follow these steps:
 1. Install Clang-Format version 16 and add it to your PATH:
 
 ```bash
-python3 -m pip install clang-format==16 && echo 'export PATH="$PATH'":$(python3 -m site --user-base)/bin\"" >> ~/.bashrc
+python3 -m pip install clang-format==16.0.6 && echo 'export PATH="$PATH'":$(python3 -m site --user-base)/bin\"" >> ~/.bashrc
 source ~/.bashrc
 ```
 

@@ -1,6 +1,8 @@
 # Clang-Format Configuration
 # Author: Luke Leppan - 25849611
 # Editor: Dylan Kirby - 25853805
+# Clang-Format Version: 16.0.6
+---
 Language: Cpp
 Standard: Auto
 
@@ -82,3 +84,5 @@ SpaceInEmptyParentheses: false
 SpacesBeforeTrailingComments: 1
 SpacesInAngles: Never
 SpacesInSquareBrackets: false
+SpacesInContainerLiterals: false
+...

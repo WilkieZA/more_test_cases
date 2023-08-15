@@ -98,7 +98,10 @@ python3 test.py --help
 For example, to run scanner tests:
 
 ```bash
+# Run scanner tests 0 through 30
 python3 test.py --scanner 0..30
+# Run scanner tests 5 8 19 and 27
+python3 test.py --scanner 5 8 19 27
 ```
 
 ### Style Checking

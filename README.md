@@ -66,10 +66,16 @@ python3 test.py --scanner 0..30
 
 ### Style Checking
 
-The `styletest.py` script will run the style checker, see:
+The `styletest.py` and `style_checker.py` scripts will run a style checker, see:
 ```bash
+# Grep based style checker
 python3 styletest.py
+# Py regex based style checker
+# This script has a --help flag for more information
+python3 style_checker.py
 ```
+
+The `style_checker.py` script will continually be improved upon, the `styletest.py` script is a depreciated solution.
 
 ### Creating tests for a module
 

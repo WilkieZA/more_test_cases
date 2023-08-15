@@ -2,8 +2,8 @@
 Test Script for AMPL compiler.
 
 Usage:
-    test.py [--scanner | --hashtable | --symboltable] [<tests>...]
-    test.py --save=<dir> [--scanner | --hashtable | --symboltable] [<tests>...]
+    test.py <--scanner | --hashtable | --symboltable> [<tests>...]
+    test.py --save=<dir> <--scanner | --hashtable | --symboltable> [<tests>...]
     test.py (-h | --help)
     test.py --version
     
@@ -20,10 +20,8 @@ Examples:
     test.py --scanner 1 2 3   # Run tests 1, 2, 3 for scanner
     test.py --hashtable 0..5  # Run tests 0, 1, 2, 3, 4, 5 for hashtable
     
-There are 9999 tests. If no tests are specified, tests [0,11) are run by default.
+There are 30 tests. If no tests are specified, tests [0..10] are run by default.
 The diff will be output to the console.
-
-Currently only the test 0..16 are sensible for human reading.
 
 Author: Dylan Kirby
 Date: 2023-08-13

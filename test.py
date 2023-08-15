@@ -2,30 +2,30 @@
 Test Script for AMPL compiler.
 
 Usage:
-    test.py [--scanner | --hashtable | --symboltable | --all] [<tests>...]
-    test.py --save=<dir> [--scanner | --hashtable | --symboltable | -all] [<tests>...]
+    test.py (--scanner | --hashtable | --symboltable | --all) [<tests>...]
+    test.py --save=<dir> (--scanner | --hashtable | --symboltable | --all) [<tests>...]
     test.py (-h | --help)
     test.py --version
     
 Options:
-    -h --help        Show this screen
-    --version        Show version
-    --scanner        Run scanner tests
-    --hashtable      Run hashtable tests
-    --symboltable    Run symboltable tests
-    --all            Run all tests
-    --save=<dir>     Save test output to <dir>
+    -h, --help        Display this help screen
+    --version         Show version information
+    --scanner         Run scanner test suite
+    --hashtable       Run hashtable test suite
+    --symboltable     Run symbol table test suite
+    --all             Run all test suites
+    --save=<dir>      Save test output to the specified directory
 
 Examples:
-    test.py --scanner 1 2 3   # Run tests 1, 2, 3 for scanner
-    test.py --hashtable 0..5  # Run tests 0, 1, 2, 3, 4, 5 for hashtable
+    test.py --scanner 1 2 3       # Run scanner tests 1, 2, 3
+    test.py --hashtable 0..5      # Run hashtable tests 0 through 5
     
-There are 30 tests. If no tests are specified, tests [0..10] are run by default.
-The diff will be output to the console.
+There are a total of 30 tests. If no specific tests are provided, tests [0..10] will be executed by default.
+The differences will be displayed on the console.
 
-@author: Dylan Kirby - 25853805
-@date: 2023-08-13
-@version: 1.3
+Author: Dylan Kirby - 25853805
+Date: 2023-08-13
+Version: 1.4
 """
 from __future__ import annotations
 
@@ -104,9 +104,10 @@ if __name__ == '__main__':
         module = 'hashtable'
     elif args['--symboltable']:
         module = 'symboltable'
+    elif args['--all']:
+        module = 'all'
     else:
-        cprint("No module specified.", 'red')
-        exit(1)
+        raise Exception("No module specified.")
 
     if module == 'all':
         modules = ['scanner', 'hashtable', 'symboltable']

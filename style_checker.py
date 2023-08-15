@@ -57,7 +57,6 @@ DISALLOWED_REGEXES = {
 
     # Lines
     "line_ends_in_space": re.compile(r"\s\n$"),
-    "eof_not_on_newline": re.compile(r"(?<![\r\n])$(?![\r\n])"),
     "line_longer_80_chars": re.compile(r"^.{81,}$"),
 
 }
@@ -93,8 +92,8 @@ if __name__ == "__main__":
         with open(file, "r") as f:
             lines = f.readlines()
 
-        for rule, regex in DISALLOWED_REGEXES.items():
-            for line_num, line in enumerate(lines):
+        for line_num, line in enumerate(lines):
+            for rule, regex in DISALLOWED_REGEXES.items():
 
                 strp_line = line.strip()
                 is_comment = strp_line.startswith("//") or strp_line.startswith("/*")
@@ -107,5 +106,12 @@ if __name__ == "__main__":
                     print(">", line.strip())
                     print()
                     errors += 1
+
+        # make sure eof is on a newline
+        if lines[-1] != "\n":
+            cprint(f"ERROR: <eof_not_on_newline> on line {len(lines)} of {file}", "red")
+            print(">", lines[-1].strip())
+            print()
+            errors += 1
 
     cprint(f"Check finished with {errors} errors.", "red" if errors else "green")

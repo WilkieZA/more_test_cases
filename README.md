@@ -2,31 +2,38 @@
 
 ![Header Image](https://repository-images.githubusercontent.com/678396879/33ab37e9-c433-4848-b67a-8f535c5bcb8c)
 
-**WARNING**: The validity of these tests is not guaranteed.
+Welcome to the AMPL Testing Scripts repository! This repository contains a set of testing scripts designed to ensure the quality and functionality of the AMPL compiler. Please note that while we strive to maintain accurate tests, the validity of these tests is not guaranteed.
+
+## Overview
+
+This repository houses a collection of testing scripts tailored to the AMPL compiler. By following the setup and usage guidelines outlined below, you can seamlessly run tests, check coding style, and even automate code formatting.
 
 ## Setup
 
 ### Requirements
 
-System Requirements:
+Before proceeding, ensure your system meets the following requirements:
+
 - Python 3
 - GCC
 - Make
+
+You can install these dependencies using the following command:
 
 ```bash
 sudo apt install gcc make python3 python3-pip
 ```
 
-Additional python requirements can be installed with:
+Additionally, install the required Python packages by running:
+
 ```bash
 python3 -m pip install -r requirements.txt
 ```
 
 ## Repository Structure
 
-The test scripts should be placed along side the `src/` directory of the `AMPL` compiler in the `test/` directory.
+To best utilize these testing scripts, adhere to the following directory structure:
 
-Follow the directory structure below:
 ```
 ampl/
     src/
@@ -46,74 +53,65 @@ ampl/
         test{module}
 ```
 
-## Scripts
+## Usage
 
-**Note**: All test scripts should be run from the `test/` directory.
+All test scripts should be executed from the `test/` directory.
 
 ### Running Tests
 
+Execute the `test.py` script to initiate tests. To explore available options, run:
 
-The `test.py` script will run the tests, see:
 ```bash
 python3 test.py --help
 ```
 
-For the purposes of the scanner run:
+For example, to run scanner tests:
+
 ```bash
-# Run all tests
 python3 test.py --scanner 0..30
 ```
 
 ### Style Checking
 
-The `styletest.py` and `style_checker.py` scripts will run a style checker, see:
+To maintain consistent coding style, you can utilize two style checking scripts: `styletest.py` and `style_checker.py`. For the latest and more comprehensive checks, use `style_checker.py`. Both scripts can be run as follows:
+
 ```bash
-# Grep based style checker
 python3 styletest.py
-# Py regex based style checker
-# This script has a --help flag for more information
 python3 style_checker.py
 ```
 
-The `style_checker.py` script will continually be improved upon, the `styletest.py` script is a depreciated solution.
+### Auto-Formatting with clang-format
 
-### Auto-Formatt using clang-format
+For code auto-formatting using `clang-format`, follow these steps:
 
-**Disclaimer**: Use auto-formatting at your own risk, it may break your code style.
+1. Install Clang-Format version 16 and add it to your PATH:
 
-You can set up automatic formatting using clang-format by running the following command:
 ```bash
-python3 -m pip install clang-format && echo 'export PATH="$PATH'":$(python3 -m site --user-base)/bin\"" >> ~/.bashrc
-```
-
-This will install clang-format using pip, this is allowed in NARGA. Then it will add the path to the binary to your PATH variable.
-
-You must then restart your terminal or run the following command:
-```bash
+python3 -m pip install clang-format==16 && echo 'export PATH="$PATH'":$(python3 -m site --user-base)/bin\"" >> ~/.bashrc
 source ~/.bashrc
 ```
 
-You then need to copy or create a `.clang-format` file to the base directory of the project.
+2. Copy the `.clang-format` file to the root of the project.
 
-You may then run the following command to format your code:
 ```bash
-clang-format -i src/*.c
+cp .clang-format ..
 ```
 
-**Note**: This will overwrite the files, so make sure you have committed your changes.
-Run `git diff` to see changes.
+3. Format your code using:
 
-### Creating tests for a module
+```bash
+clang-format -i src/*
+```
 
-*NB*: This script should only be used by people contributing to the test suite.
+**Note**: Be cautious, as auto-formatting may alter your code style. Always review changes using `git diff` before committing.
 
-The `create_test_cases.sh` script saves the executed code to the module direcory, effectively overwriting the "expected out".
+### Creating Tests for a Module
+
+If you're contributing to the test suite, utilize the `create_test_cases.sh` script. This script saves executed code to the module directory, effectively overwriting the "expected out."
 
 ## Contributing
 
-Please fork the repository and checkout a resonable branch name and submit a pull request to merge your changes.
-
-> Do not commit directly to the `master` branch
+We welcome contributions to this project! To get started, fork the repository, create a meaningful branch, and submit a pull request. Please avoid committing directly to the `master` branch.
 
 ## Acknowledgments
 
@@ -124,3 +122,6 @@ Please fork the repository and checkout a resonable branch name and submit a pul
 | Michael van Zyl   | 22604731       |
 | Matthew Stein     | 25400800       |
 | Louis Wilkinson   | 25948873       |
+| Luke Leppan       | 25849611       |
+
+Your contributions make this project possible!

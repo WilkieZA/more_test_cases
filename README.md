@@ -77,6 +77,32 @@ python3 style_checker.py
 
 The `style_checker.py` script will continually be improved upon, the `styletest.py` script is a depreciated solution.
 
+### Auto-Formatt using clang-format
+
+**Disclaimer**: Use auto-formatting at your own risk, it may break your code style.
+
+You can set up automatic formatting using clang-format by running the following command:
+```bash
+python3 -m pip install clang-format && echo 'export PATH="$PATH'":$(python3 -m site --user-base)/bin\"" >> ~/.bashrc
+```
+
+This will install clang-format using pip, this is allowed in NARGA. Then it will add the path to the binary to your PATH variable.
+
+You must then restart your terminal or run the following command:
+```bash
+source ~/.bashrc
+```
+
+You then need to copy or create a `.clang-format` file to the base directory of the project.
+
+You may then run the following command to format your code:
+```bash
+clang-format -i src/*.c
+```
+
+**Note**: This will overwrite the files, so make sure you have committed your changes.
+Run `git diff` to see changes.
+
 ### Creating tests for a module
 
 *NB*: This script should only be used by people contributing to the test suite.

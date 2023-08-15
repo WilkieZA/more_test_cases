@@ -23,9 +23,9 @@ Examples:
 There are 30 tests. If no tests are specified, tests [0..10] are run by default.
 The diff will be output to the console.
 
-Author: Dylan Kirby
-Date: 2023-08-13
-Version: 1.0
+@author: Dylan Kirby - 25853805
+@date: 2023-08-13
+@version: 1.3
 """
 from __future__ import annotations
 
@@ -105,7 +105,8 @@ if __name__ == '__main__':
     elif args['--symboltable']:
         module = 'symboltable'
     else:
-        module = 'all'
+        cprint("No module specified.", 'red')
+        exit(1)
 
     if module == 'all':
         modules = ['scanner', 'hashtable', 'symboltable']

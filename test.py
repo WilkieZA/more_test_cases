@@ -3,7 +3,7 @@ Test Script for AMPL compiler.
 
 Usage:
     test.py [--scanner | --hashtable | --symboltable | --all] [<tests>...]
-    test.py --save=<dir> <--scanner | --hashtable | --symboltable> [<tests>...]
+    test.py --save=<dir> [--scanner | --hashtable | --symboltable | -all] [<tests>...]
     test.py (-h | --help)
     test.py --version
     

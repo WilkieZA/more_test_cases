@@ -10,9 +10,9 @@ Options:
     -h, --help      Show this help message and exit
     -v, --verbose   Print verbose output
 
-@author: Dylan Kirby - 25853805
-@date: 2023-08-15
-@version: 2.0
+Author: Dylan Kirby - 25853805
+Date: 2023-08-16
+Version: 2.0
 """
 
 import os

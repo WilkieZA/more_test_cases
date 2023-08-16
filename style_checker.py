@@ -32,25 +32,21 @@ import re
 from termcolor import cprint
 
 # Precompile regexes
-DISALLOWED_REGEXES = {
+ERROR_REGEXES = {
     # Logical Statements
     "no_if_space": re.compile(r"if\("),
     "no_for_space": re.compile(r"for\("),
     "no_while_space": re.compile(r"while\("),
     "no_switch_space": re.compile(r"switch\("),
-    "no_case_space": re.compile(r"case\("),
-    "no_space_before_else": re.compile(r"\}else"),
-    "no_space_after_else": re.compile(r"else\{"),
-    "no_space_between_else_if": re.compile(r"elseif"),
+    "no_case_space": re.compile(r"case\w"),
+    "no_space_around_else": re.compile(r"(\}else)|(else\{)"),
 
     # Braces
-    "opening_parenthesis_space": re.compile(r"\(\s"),
-    "closing_parenthesis_space": re.compile(r"\s\)"),
-    "opening_bracket_space": re.compile(r"\[\s"),
-    "closing_bracket_space": re.compile(r"\s\]"),
+    "parenthesis_with_space": re.compile(r"(\(\s)|(\s\))"),
+    "bracket_with_space": re.compile(r"(\[\s)|(\s\])"),
     
     # Function Calls
-    "sizeof_with_space": re.compile(r"sizeof \("),
+    "function_with_space": re.compile(r"\b(?!(if|for|while|switch|else|return|void|int|char|double)\b)[a-z]+\s\("),
     
     # Comments
     "single_line_comment": re.compile(r"//"),
@@ -59,6 +55,10 @@ DISALLOWED_REGEXES = {
     "line_ends_in_space": re.compile(r"\s\n$"),
     "line_longer_80_chars": re.compile(r"^.{81,}$"),
 
+}
+
+WARNING_REGEXES = {
+    "spaces_around_additive_op_in_array_access": re.compile(r"\w\[\s*\w(\s+[+-]\s*)|(\s*[+-]\s+)\w\s*\]"),
 }
 
 COMMENT_CHECKS = [
@@ -88,12 +88,33 @@ if __name__ == "__main__":
 
     # check each file
     errors = 0
+    warnings = 0
     for file in c_files:
         with open(file, "r") as f:
             lines = f.readlines()
 
         for line_num, line in enumerate(lines):
-            for rule, regex in DISALLOWED_REGEXES.items():
+            for rule, regex in ERROR_REGEXES.items():
+
+                strp_line = line.strip()
+                is_comment = strp_line.startswith(("/*", "*"), 0, 2)
+                # Skip checks on comments unless it is a comment check
+                if is_comment and rule not in COMMENT_CHECKS:
+                    continue
+
+                res = regex.search(line)
+                if res:
+                    if line.find("print") != -1 and line.find("print") < res.start():
+                        cprint(f"POTENTIAL ERROR: <{rule}> on line {line_num + 1} of {file}", "magenta")
+                        print(">", strp_line)
+                        print()
+                        continue
+                    cprint(f"ERROR: <{rule}> on line {line_num + 1} of {file}", "red")
+                    print(">", strp_line)
+                    print()
+                    errors += 1
+
+            for rule, regex in WARNING_REGEXES.items():
 
                 strp_line = line.strip()
                 is_comment = strp_line.startswith("//") or strp_line.startswith("/*")
@@ -102,10 +123,10 @@ if __name__ == "__main__":
                     continue
 
                 if regex.search(line):
-                    cprint(f"ERROR: <{rule}> on line {line_num + 1} of {file}", "red")
-                    print(">", line.strip())
+                    cprint(f"WARNING: <{rule}> on line {line_num + 1} of {file}", "yellow")
+                    print(">", strp_line)
                     print()
-                    errors += 1
+                    warnings += 1
 
         # make sure eof is on a newline
         if lines[-1] != "\n":
@@ -114,4 +135,4 @@ if __name__ == "__main__":
             print()
             errors += 1
 
-    cprint(f"Check finished with {errors} errors.", "red" if errors else "green")
+    cprint(f"Check finished with {errors} errors and {warnings} warnings.", "red" if errors else "yellow" if warnings else "green")

@@ -166,7 +166,7 @@ def check_lines():
 
 if __name__ == "__main__":
 
-    args = docopt(__doc__)
+    args = docopt(__doc__, version="2.0")
     is_verbose = args["--verbose"]
 
     cprint("Starting style check...", "blue")

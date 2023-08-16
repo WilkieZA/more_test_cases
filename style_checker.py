@@ -65,6 +65,30 @@ COMMENT_CHECKS = [
     "line_longer_80_chars"
 ]
 
+IS_PRINT_RE = re.compile(r"\w*print\w*\s*\(")
+
+
+ERR_LEVELS = {
+    "ERROR": "red",
+    "WARNING": "yellow",
+    "POTENTIAL ERROR": "magenta"
+}
+def errprint(level, rule, file_name, line_num, line):
+    """
+    Prints an error message to the console.
+    
+    :param level: The level of the error (0 = error, 1 = warning, 2 = potential error)
+    :param rule: The rule that was broken
+    :param file_name: The name of the file that the error occured in
+    :param line_num: The line number that the error occured on
+    :param line: The line that the error occured on
+    """
+
+    color = ERR_LEVELS.get(level, "red")
+
+    cprint(f"{level}: <{rule}> on line {line_num + 1} of {file_name}", color)
+    print(">", line)
+    print()
 
 if __name__ == "__main__":
 
@@ -102,17 +126,15 @@ if __name__ == "__main__":
                 if is_comment and rule not in COMMENT_CHECKS:
                     continue
 
-                res = regex.search(line)
-                if res:
-                    if line.find("print") != -1 and line.find("print") < res.start():
-                        cprint(f"POTENTIAL ERROR: <{rule}> on line {line_num + 1} of {file}", "magenta")
-                        print(">", strp_line)
-                        print()
-                        continue
-                    cprint(f"ERROR: <{rule}> on line {line_num + 1} of {file}", "red")
-                    print(">", strp_line)
-                    print()
-                    errors += 1
+                re_match = regex.search(line)
+                if re_match:
+                    # Check for print statements
+                    is_print = IS_PRINT_RE.search(line)
+                    if is_print and is_print.start() < re_match.start():
+                        errprint("POTENTIAL ERROR", rule, file, line_num, strp_line)
+                    else:
+                        errprint("ERROR", rule, file, line_num, strp_line)
+                        errors += 1
 
             for rule, regex in WARNING_REGEXES.items():
 
@@ -123,9 +145,7 @@ if __name__ == "__main__":
                     continue
 
                 if regex.search(line):
-                    cprint(f"WARNING: <{rule}> on line {line_num + 1} of {file}", "yellow")
-                    print(">", strp_line)
-                    print()
+                    errprint("WARNING", rule, file, line_num, strp_line)
                     warnings += 1
 
         # make sure eof is on a newline
@@ -136,3 +156,8 @@ if __name__ == "__main__":
             errors += 1
 
     cprint(f"Check finished with {errors} errors and {warnings} warnings.", "red" if errors else "yellow" if warnings else "green")
+
+    if errors:
+        sys.exit(1)
+
+    sys.exit(0)

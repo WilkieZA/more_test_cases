@@ -1,0 +1,9 @@
+true
+32
+23
+"AcB"
+"suz5P6glf"
+<
+=
+"qR6kg9Y39k"
+program

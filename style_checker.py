@@ -12,7 +12,7 @@ Options:
 
 @author: Dylan Kirby - 25853805
 @date: 2023-08-15
-@version: 1.0
+@version: 2.0
 """
 
 import os

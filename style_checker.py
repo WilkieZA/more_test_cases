@@ -2,24 +2,6 @@
 A style checker for C files.
 It will automatically scan the `src/` directory, and should be executed from a sibling of `src/`.
 
-The following will be checked:
-| Requirement | Description                                    | Example        |
-| ----------- | ---------------------------------------------- | -------------- |
-| Required    | Indentation using tabs                         |                |
-| Required    | Spaces between logical statements and braces   | if (           |
-| Required    | Spaces in additive logical operators           | (x + 1)        |
-| Required    | No spaces in additive operators in []          | x[a + b]       |
-| Required    | Spaces between braces and statements           | } else {       |
-| Optional    | Spaces in multiplicative operators             | x*y OR x + y   |
-| Required    | Spaces between function calls and braces       | function (x) { |
-| Required    | Spaces between braces and logical statements   | } (            |
-| Required    | sizeof must be treated as a function           | sizeof (x)     |
-| Required    | EOF must be on a newline                       | \\nEOF          |
-| Required    | No sinle line comments                         | //             |
-| Required    | No spaces after opening parenthesis            | ( x            |
-| Required    | No lines containing only spaces or tabs        |                |
-| Required    | No lines ending in spaces                      |                |
-
 Usage:
     style_checker.py [options]
     style_checker.py [options] <file>...
@@ -43,14 +25,14 @@ from pprint import pprint
 
 # Precompile regexes
 ERROR_REGEXES = {
-    # Logical Statements
-    "no_if_space": re.compile(r"if\("),
-    "no_for_space": re.compile(r"for\("),
-    "no_while_space": re.compile(r"while\("),
-    "no_switch_space": re.compile(r"switch\("),
-    "no_case_space": re.compile(r"case\w"),
-    "no_space_around_else": re.compile(r"(\}else)|(else\{)"),
-    "else_on_newline": re.compile(r"^\s*else"),
+    # Control Statements
+    "control_statement_missing_space": re.compile(r"if\("),
+    "control_statement_missing_space": re.compile(r"for\("),
+    "control_statement_missing_space": re.compile(r"while\("),
+    "control_statement_missing_space": re.compile(r"switch\("),
+    "control_statement_missing_space": re.compile(r"case\w"),
+    "control_statement_missing_space": re.compile(r"(\}else)|(else\{)"),
+    "else_without_closing_brace": re.compile(r"^\s*else"),
 
     # Operators
     "multiplicative_with_only_one_space": re.compile(r"(([a-z0-9().]+\s+[*/][a-z0-9().]+)|([a-z0-9().]+[*/]\s+[a-z0-9().]+))"),
@@ -58,8 +40,7 @@ ERROR_REGEXES = {
     "preprocessor_not_flush_with_left": re.compile(r"^\s+#"),
 
     # Delimmiters
-    "no_space_after_comma": re.compile(r",\w"),
-    "no_space_after_semicolon": re.compile(r";\w"),
+    "no_space_after_delimmiter": re.compile(r"[,;]\w"),
 
     # Braces
     "paren_with_space": re.compile(r"(\(\s)|(\s\))"),
@@ -79,7 +60,11 @@ ERROR_REGEXES = {
 }
 
 WARNING_REGEXES = {
-    "spaces_around_additive_op_in_array_access": re.compile(r"\\w+\[\s*[a-z0-9]+(\s+[+-]\s*)|(\s*[+-]\s+)[a-z0-9]+\s*\]", re.IGNORECASE),
+    "spaces_around_additive_operator_in_array_access": re.compile(r"\\w+\[\s*[a-z0-9]+(\s+[+-]\s*)|(\s*[+-]\s+)[a-z0-9]+\s*\]", re.IGNORECASE),
+    "viloation_of_one_true_brace_style": re.compile(r"\sfor[^\{]*\n"),
+    "viloation_of_one_true_brace_style": re.compile(r"\swhile[^\{]*\n"),
+    "viloation_of_one_true_brace_style": re.compile(r"\sif[^\{]*\n"),
+    "viloation_of_one_true_brace_style": re.compile(r"\selse[^\{]*\n"),
 }
 
 COMMENT_CHECKS = [
@@ -133,7 +118,7 @@ def check_lines():
         # Precompute certain checks
         strp_line = line.strip()
         is_comment = strp_line.startswith(("/*", "*"), 0, 2)
-        is_print = IS_STRING_RE.search(line)
+        is_string = IS_STRING_RE.search(line)
         is_pointer = IS_POINTER_RE.search(line)
 
         for rule, regex in ERROR_REGEXES.items():
@@ -149,8 +134,11 @@ def check_lines():
                 errprint("POTENTIAL ERROR", rule, file, line_num, strp_line, re_match.group()) if is_verbose else None
                 continue
             
-            if is_print and is_print.start() < re_match.start():
-                errprint("POTENTIAL ERROR", rule, file, line_num, strp_line, re_match.group())
+            if is_string and is_string.start() < re_match.start():
+                if rule in COMMENT_CHECKS:
+                    errprint("ERROR", rule, file, line_num, strp_line, re_match.group())
+                elif is_verbose:
+                    errprint("POTENTIAL ERROR", rule, file, line_num, strp_line, re_match.group())
                 continue
                 
             errprint("ERROR", rule, file, line_num, strp_line, re_match.group())

@@ -32,20 +32,20 @@ ERROR_REGEXES = {
     "control_statement_missing_space": re.compile(r"switch\("),
     "control_statement_missing_space": re.compile(r"case\w"),
     "control_statement_missing_space": re.compile(r"(\}else)|(else\{)"),
-    "else_without_closing_brace": re.compile(r"^\s*else"),
+    "else_not_preceeded_by_closing_brace": re.compile(r"^\s*else"),
 
     # Operators
-    "multiplicative_with_only_one_space": re.compile(r"(([a-z0-9().]+\s+[*/][a-z0-9().]+)|([a-z0-9().]+[*/]\s+[a-z0-9().]+))"),
-    "additive_with_only_one_space": re.compile(r"(([a-z0-9().]+\s+[+-][a-z0-9().]+)|([a-z0-9().]+[+-]\s+[a-z0-9().]+))"),
-    "preprocessor_not_flush_with_left": re.compile(r"^\s+#"),
+    "invalid_multiplicative_spacing": re.compile(r"(([a-z0-9().]+\s+[*/][a-z0-9().]+)|([a-z0-9().]+[*/]\s+[a-z0-9().]+))"),
+    "invalid_additive_spacing": re.compile(r"(([a-z0-9().]+\s+[+-][a-z0-9().]+)|([a-z0-9().]+[+-]\s+[a-z0-9().]+))"),
+    "preprocessor_not_flush_with_left_margin": re.compile(r"^\s+#"),
 
     # Delimmiters
     "no_space_after_delimmiter": re.compile(r"[,;]\w"),
 
     # Braces
-    "paren_with_space": re.compile(r"(\(\s)|(\s\))"),
-    "bracket_with_space": re.compile(r"(\[\s)|(\s\])"),
-    "paren_and_curly_without_space": re.compile(r"\)\{"),
+    "paren_with_inner_space": re.compile(r"(\(\s)|(\s\))"),
+    "bracket_with_inner_space": re.compile(r"(\[\s)|(\s\])"),
+    "paren_and_curly_without_seperation": re.compile(r"\)\{"),
     
     # Function Calls
     "function_with_space": re.compile(r"\b(?!(if|for|while|switch|else|return|void|int|char|double)\b)[a-z]+\s\("),
@@ -60,7 +60,7 @@ ERROR_REGEXES = {
 }
 
 WARNING_REGEXES = {
-    "spaces_around_additive_operator_in_array_access": re.compile(r"\\w+\[\s*[a-z0-9]+(\s+[+-]\s*)|(\s*[+-]\s+)[a-z0-9]+\s*\]", re.IGNORECASE),
+    "spaces_in_array_access": re.compile(r"\\w+\[\s*[a-z0-9]+(\s+[+-]\s*)|(\s*[+-]\s+)[a-z0-9]+\s*\]", re.IGNORECASE),
     "viloation_of_one_true_brace_style": re.compile(r"\sfor[^\{]*\n"),
     "viloation_of_one_true_brace_style": re.compile(r"\swhile[^\{]*\n"),
     "viloation_of_one_true_brace_style": re.compile(r"\sif[^\{]*\n"),
@@ -81,6 +81,7 @@ ERR_LEVELS = {
     "WARNING": "yellow",
     "POTENTIAL ERROR": "magenta"
 }
+
 def errprint(level, rule, file_name, line_num, line, match_group=None):
     """
     Prints an error message to the console.
@@ -130,7 +131,7 @@ def check_lines():
             if not re_match:
                 continue
 
-            if is_pointer and rule == "multiplicative_with_only_one_space":
+            if is_pointer and rule == "invalid_multiplicative_spacing":
                 errprint("POTENTIAL ERROR", rule, file, line_num, strp_line, re_match.group()) if is_verbose else None
                 continue
             

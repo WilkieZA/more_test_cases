@@ -8,6 +8,7 @@ Standard: Auto
 
 # ------------ PERSONAL PREFERANCE ------------ #
 IndentCaseLabels: true
+AlignArrayOfStructures: Left
 
 
 
@@ -80,9 +81,9 @@ SpaceBeforeCaseColon: false
 SpaceBeforeParens: ControlStatements
 SpaceBeforeSquareBrackets: false
 SpaceInEmptyBlock: false
-SpaceInEmptyParentheses: false
 SpacesBeforeTrailingComments: 1
 SpacesInAngles: Never
+SpacesInParentheses: false
 SpacesInSquareBrackets: false
 SpacesInContainerLiterals: false
 ...

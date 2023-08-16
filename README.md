@@ -30,6 +30,10 @@ Additionally, install the required Python packages by running:
 python3 -m pip install -r requirements.txt
 ```
 
+## Extracting test script
+
+Extract the "scanner.zip" and "tests.zip" files inside your ampl-tests directory.
+
 ## Repository Structure
 
 To best utilize these testing scripts, adhere to the following directory structure:
